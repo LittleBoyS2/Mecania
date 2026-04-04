@@ -1,6 +1,7 @@
 package br.com.mecanica.model;
 
 public class OrdemServico {
+<<<<<<< HEAD
 
     private int id;
     private Veiculo veiculo; // 🔗 ligação
@@ -77,3 +78,6 @@ public class OrdemServico {
         this.valorTotal = valorTotal;
     }
 }
+=======
+}
+>>>>>>> 8d9e572fe163169de2b9a9a897dd5cf79d506a58

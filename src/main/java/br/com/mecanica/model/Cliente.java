@@ -1,6 +1,7 @@
 package br.com.mecanica.model;
 
 public class Cliente {
+<<<<<<< HEAD
 
     private String nome;
     private String cpf;
@@ -61,3 +62,6 @@ public class Cliente {
         this.endereco = endereco;
     }
 }
+=======
+}
+>>>>>>> 8d9e572fe163169de2b9a9a897dd5cf79d506a58

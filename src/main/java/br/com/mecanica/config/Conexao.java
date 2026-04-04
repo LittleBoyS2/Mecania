@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 package br.com.mecanica.config;
 
 import java.sql.Connection;
@@ -16,3 +17,9 @@ public class Conexao {
         return DriverManager.getConnection(URL, USER, PASS);
     }
 }
+=======
+package config;
+
+public class Conexao {
+}
+>>>>>>> 8d9e572fe163169de2b9a9a897dd5cf79d506a58
