@@ -1,5 +1,5 @@
 package br.com.mecanica.dao;
-<<<<<<< HEAD
+
 import br.com.mecanica.config.Conexao;
 import br.com.mecanica.model.Cliente;
 import java.sql.SQLException;
@@ -26,8 +26,4 @@ public class ClienteDAO {
             e.printStackTrace();
         }
     }
-=======
-
-public class ClienteDAO {
->>>>>>> 8d9e572fe163169de2b9a9a897dd5cf79d506a58
 }

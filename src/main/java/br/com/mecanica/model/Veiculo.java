@@ -1,7 +1,7 @@
 package br.com.mecanica.model;
 
 public class Veiculo {
-<<<<<<< HEAD
+
 
     private int Id;
     private String placa;
@@ -62,6 +62,5 @@ public class Veiculo {
     public String getAno() {return ano;}
 
     public void setAno(String ano) {this.ano = ano;}
-=======
->>>>>>> 8d9e572fe163169de2b9a9a897dd5cf79d506a58
+
 }

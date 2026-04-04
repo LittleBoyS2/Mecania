@@ -1,5 +1,5 @@
 package br.com.mecanica.dao;
-<<<<<<< HEAD
+
 import br.com.mecanica.config.Conexao;
 import br.com.mecanica.model.Cliente;
 import br.com.mecanica.model.Veiculo;
@@ -56,7 +56,7 @@ public class OrdemServicoDAO {
             os.setDataSaida(rs.getString("data_saida"));
             os.setValorTotal(rs.getDouble("valor_total"));
 
-            // 🔗 criando o veículo
+
             Veiculo v = new Veiculo();
             v.setId(rs.getInt("id_veiculo"));
             v.setModelo(rs.getString("modelo"));
@@ -104,8 +104,5 @@ public class OrdemServicoDAO {
         stmt.close();
         conn.close();
     }
-=======
 
-public class OrdemServico {
->>>>>>> 8d9e572fe163169de2b9a9a897dd5cf79d506a58
 }

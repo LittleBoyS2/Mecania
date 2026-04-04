@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 package br.com.mecanica;
 
 import br.com.mecanica.config.Conexao;
@@ -101,7 +100,5 @@ public class Main {
         }
     }
 }
-=======
-public class Main {
-}
->>>>>>> 8d9e572fe163169de2b9a9a897dd5cf79d506a58
+
+
