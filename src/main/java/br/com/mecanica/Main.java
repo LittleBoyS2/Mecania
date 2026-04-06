@@ -16,11 +16,11 @@ public class Main {
         Scanner input = new Scanner(System.in);
 
         try {
-            // Tenta estabelecer conexão inicial
+            
             Conexao.conectar();
             System.out.println("Conexão com o banco estabelecida!");
 
-            // --- CADASTRO DE CLIENTE ---
+            // --- CADASTRO DO CLIENTE ---
             Cliente cliente = new Cliente();
             System.out.println("\n>>> Cadastro de Cliente");
             System.out.print("Nome: ");
@@ -60,18 +60,18 @@ public class Main {
             System.out.print("Marca: ");
             veiculo.setMarca(input.nextLine());
 
-            // Aqui associamos o veículo ao cliente (se sua classe Veiculo tiver esse campo)
-            // veiculo.setCliente(cliente);
+            
 
             VeiculoDAO veiculoDAO = new VeiculoDAO();
             veiculoDAO.cadastrar(veiculo);
             System.out.println("Veículo cadastrado com sucesso!");
 
-            // --- CADASTRO DE ORDEM DE SERVIÇO ---
+
+            // --- CADASTRO DA ORDEM DE SERVIÇO ---
+            
             System.out.println("\n>>> Abrindo Ordem de Serviço");
             OrdemServico os = new OrdemServico();
 
-            // Associamos o objeto veiculo que acabamos de preencher
             os.setVeiculo(veiculo);
 
             System.out.print("Descrição do Problema: ");
@@ -95,7 +95,7 @@ public class Main {
             System.err.println("\n[ERRO]: Ocorreu um problema durante a execução:");
             e.printStackTrace();
         } finally {
-            // Fecha o scanner para evitar vazamento de memória
+            
             input.close();
         }
     }
