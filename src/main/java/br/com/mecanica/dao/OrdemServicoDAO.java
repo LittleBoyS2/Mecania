@@ -16,19 +16,19 @@ import java.util.List;
 
 public class OrdemServicoDAO {
     public void inserir(OrdemServico os) throws SQLException {
-        String sql = "INSERT INTO ordem_servico (Id, problema, diagnostico, status, data_entrada, data_saida, valor_total) VALUES (?, ?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO ordem_servico (problema, diagnostico, status, data_entrada, data_saida, valor_total, id_veiculo) VALUES (?, ?, ?, ?, ?, ?, ?)";
+
 
         Connection conn = Conexao.conectar();
         PreparedStatement stmt = conn.prepareStatement(sql);
 
-        stmt.setInt(1, os.getVeiculo().getId());
-        stmt.setString(2, os.getProblema());
-        stmt.setString(3, os.getDiagnostico());
-        stmt.setString(4, os.getStatus());
-        stmt.setString(5, os.getDataEntrada());
-        stmt.setString(6, os.getDataSaida());
-        stmt.setDouble(7, os.getValorTotal());
-
+        stmt.setString(1, os.getProblema());
+        stmt.setString(2, os.getDiagnostico());
+        stmt.setString(3, os.getStatus());
+        stmt.setString(4, os.getDataEntrada());
+        stmt.setString(5, os.getDataSaida());
+        stmt.setDouble(6, os.getValorTotal());
+        stmt.setInt(7, os.getVeiculo().getId());
         stmt.execute();
         stmt.close();
         conn.close();

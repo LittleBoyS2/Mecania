@@ -8,6 +8,8 @@ import br.com.mecanica.model.Veiculo;
 import br.com.mecanica.dao.OrdemServicoDAO;
 import br.com.mecanica.model.OrdemServico;
 
+
+import java.util.List;
 import java.util.Scanner;
 
 public class Main {
@@ -16,11 +18,11 @@ public class Main {
         Scanner input = new Scanner(System.in);
 
         try {
-            // Tenta estabelecer conexão inicial
+
             Conexao.conectar();
             System.out.println("Conexão com o banco estabelecida!");
 
-            // --- CADASTRO DE CLIENTE ---
+            // --- CADASTRO DO CLIENTE ---
             Cliente cliente = new Cliente();
             System.out.println("\n>>> Cadastro de Cliente");
             System.out.print("Nome: ");
@@ -39,8 +41,17 @@ public class Main {
             cliente.setEndereco(input.nextLine());
 
             ClienteDAO clienteDAO = new ClienteDAO();
-            clienteDAO.cadastrar(cliente);
+
+            int idCliente = clienteDAO.cadastrar(cliente);
+
+            if (idCliente == -1) {
+                System.out.println("Erro ao cadastrar cliente!");
+                return;
+            }
+
+
             System.out.println("Cliente cadastrado com sucesso!");
+
 
             // --- CADASTRO DE VEÍCULO ---
             Veiculo veiculo = new Veiculo();
@@ -60,18 +71,25 @@ public class Main {
             System.out.print("Marca: ");
             veiculo.setMarca(input.nextLine());
 
-            // Aqui associamos o veículo ao cliente (se sua classe Veiculo tiver esse campo)
-            // veiculo.setCliente(cliente);
+            veiculo.setIdCliente(idCliente);
 
             VeiculoDAO veiculoDAO = new VeiculoDAO();
-            veiculoDAO.cadastrar(veiculo);
+
+            int idVeiculo = veiculoDAO.cadastrar(veiculo);
+            if (idVeiculo <= 0) {
+                System.out.println("Erro ao cadastrar veículo!");
+                return;
+            }
+
             System.out.println("Veículo cadastrado com sucesso!");
 
-            // --- CADASTRO DE ORDEM DE SERVIÇO ---
+
+            // --- CADASTRO DA ORDEM DE SERVIÇO ---
+
             System.out.println("\n>>> Abrindo Ordem de Serviço");
             OrdemServico os = new OrdemServico();
+            OrdemServicoDAO dao = new OrdemServicoDAO();
 
-            // Associamos o objeto veiculo que acabamos de preencher
             os.setVeiculo(veiculo);
 
             System.out.print("Descrição do Problema: ");
@@ -80,25 +98,120 @@ public class Main {
             System.out.print("Diagnóstico Inicial: ");
             os.setDiagnostico(input.nextLine());
 
+            System.out.print("Valor Total Estimado (coloque . inves de ,): ");
+            os.setValorTotal(Double.parseDouble(input.nextLine()));
+
             os.setStatus("Aberto");
             os.setDataEntrada("2026-03-31");
 
-            System.out.print("Valor Total Estimado: ");
-            os.setValorTotal(Double.parseDouble(input.nextLine()));
-
-            OrdemServicoDAO dao = new OrdemServicoDAO();
+            veiculo.setId(idVeiculo);
             dao.inserir(os);
 
             System.out.println("Ordem de Serviço (OS) cadastrada com sucesso!");
+
+
+
+            int opcao;
+
+            do {
+                System.out.println("\n=== MENU ===");
+                System.out.println("1 - Listar OS");
+                System.out.println("2 - Atualizar OS");
+                System.out.println("3 - Deletar OS");
+                System.out.println("4 - Gravar");
+                System.out.print("Escolha: ");
+                opcao = input.nextInt();
+                input.nextLine();
+
+                switch (opcao) {
+
+                    case 1:
+
+                        List<OrdemServico> lista = dao.listar();
+
+                        if (lista.isEmpty()) {
+                            System.out.println("Nenhuma OS encontrada.");
+                        } else {
+                            for (OrdemServico osItem : lista) {
+
+                                System.out.println("\n--- ORDEM DE SERVIÇO ---");
+                                System.out.println("ID: " + osItem.getId());
+                                System.out.println("Problema: " + osItem.getProblema());
+                                System.out.println("Diagnóstico: " + osItem.getDiagnostico());
+                                System.out.println("Status: " + osItem.getStatus());
+                                System.out.println("Data Entrada: " + osItem.getDataEntrada());
+                                System.out.println("Data Saída: " + osItem.getDataSaida());
+                                System.out.println("Valor: " + osItem.getValorTotal());
+
+                                System.out.println("Veículo:");
+                                System.out.println("  ID: " + osItem.getVeiculo().getId());
+                                System.out.println("  Modelo: " + osItem.getVeiculo().getModelo());
+                                System.out.println("  Placa: " + osItem.getVeiculo().getPlaca());
+                            }
+                        }
+
+                        break;
+
+                    case 2:
+
+
+                        System.out.print("ID: ");
+                        os.setId(input.nextInt());
+                        input.nextLine();
+
+                        System.out.print("Problema: ");
+                        os.setProblema(input.nextLine());
+
+                        System.out.print("Diagnóstico: ");
+                        os.setDiagnostico(input.nextLine());
+
+                        System.out.print("Status: ");
+                        os.setStatus(input.nextLine());
+
+                        System.out.print("Data saída: ");
+                        os.setDataSaida(input.nextLine());
+
+                        System.out.print("Valor total: ");
+                        os.setValorTotal(Double.parseDouble(input.nextLine().replace(",", ".")));
+
+                        dao.atualizar(os);
+
+                        System.out.println("OS atualizada com sucesso!");
+                        break;
+
+                    case 3:
+
+                        System.out.print("ID: ");
+                        os.setId(input.nextInt());
+                        input.nextLine();
+
+                        System.out.print("Tem certeza que deseja deletar? (s/n): ");
+                        String confirm = input.nextLine();
+
+                        if (confirm.equalsIgnoreCase("s")) {
+                            dao.deletar(os.getId());
+                            System.out.println("OS deletada com sucesso!");
+                        } else {
+                            System.out.println("Operação cancelada.");
+                        }
+                        break;
+
+                    case 4:
+                        System.out.println("Gravando...");
+                        break;
+
+                    default:
+                        System.out.println("Opção inválida!");
+                }
+
+            } while (opcao != 4);
 
         } catch (Exception e) {
             System.err.println("\n[ERRO]: Ocorreu um problema durante a execução:");
             e.printStackTrace();
         } finally {
-            // Fecha o scanner para evitar vazamento de memória
+
             input.close();
         }
     }
 }
-
-

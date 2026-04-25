@@ -7,12 +7,12 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 
 public class ClienteDAO {
-    public void cadastrar(Cliente cliente){
+    public int cadastrar(Cliente cliente){
 
         String sql = "INSERT INTO clientes (nome, cpf, telefone, email, endereco) VALUES (?, ?, ?, ?, ?)";
 
         try(Connection conn = Conexao.conectar();
-            PreparedStatement stmt = conn.prepareStatement(sql)){
+            PreparedStatement stmt = conn.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS)){
 
             stmt.setString(1, cliente.getNome());
             stmt.setString(2, cliente.getCpf());
@@ -22,8 +22,15 @@ public class ClienteDAO {
 
             stmt.executeUpdate();
 
+            var rs = stmt.getGeneratedKeys();
+            if (rs.next()) {
+                return rs.getInt(1);//
+            }
+
+
         } catch (Exception e) {
             e.printStackTrace();
         }
+        return -1;
     }
 }

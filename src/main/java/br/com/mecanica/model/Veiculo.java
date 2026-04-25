@@ -3,31 +3,37 @@ package br.com.mecanica.model;
 public class Veiculo {
 
 
-    private int Id;
+    private int id;
+    private int idCliente;
     private String placa;
     private String marca;
     private String modelo;
     private String cor;
     private String ano;
 
-    public Veiculo(int Id, String placa, String marca,String modelo, String cor,String ano){
+    public Veiculo(int id, int idCliente ,String placa, String marca,String modelo, String cor,String ano){
         this.placa = placa;
         this.marca = marca;
         this.modelo = modelo;
         this.cor = cor;
         this.ano = ano;
-        this.Id = Id;
+        this.id = id;
+        this.idCliente = idCliente;
     }
 
     public Veiculo() {}
 
     public int getId() {
-        return Id;
+        return id;
     }
 
     public void setId(int id) {
-        this.Id = id;
+        this.id = id;
     }
+
+    public int getIdCliente() {return idCliente;}
+
+    public void setIdCliente(int idCliente) { this.idCliente = idCliente;}
 
     public String getPlaca() {
         return placa;

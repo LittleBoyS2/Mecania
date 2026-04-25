@@ -10,29 +10,30 @@ import java.sql.SQLException;
 public class VeiculoDAO {
 
 
-    public boolean cadastrar(Veiculo veiculo) {
-        String sql = "INSERT INTO veiculo (placa, marca, modelo, cor, ano) VALUES (?, ?, ?, ?, ?)";
+    public int cadastrar(Veiculo veiculo) {
+        String sql = "INSERT INTO veiculos (placa, marca, modelo, cor, ano, id_cliente) VALUES (?, ?, ?, ?, ?, ?)";
 
         try (Connection conn = Conexao.conectar();
-             PreparedStatement stmt = conn.prepareStatement(sql)) {
+             PreparedStatement stmt = conn.prepareStatement(sql, java.sql.Statement.RETURN_GENERATED_KEYS)) {
 
             stmt.setString(1, veiculo.getPlaca());
             stmt.setString(2, veiculo.getMarca());
             stmt.setString(3, veiculo.getModelo());
             stmt.setString(4, veiculo.getCor());
             stmt.setString(5, veiculo.getAno());
+            stmt.setInt(6, veiculo.getIdCliente());
 
-            int linhasAfetadas = stmt.executeUpdate();
-            return linhasAfetadas > 0;
+            stmt.executeUpdate();
 
-        } catch (SQLException e) {
-            System.err.println("Erro ao cadastrar veículo: " + e.getMessage());
-            e.printStackTrace();
-            return false;
+            var rs = stmt.getGeneratedKeys();
+            if (rs.next()) {
+                return rs.getInt(1); // 👈 ID gerado
+            }
+
         } catch (Exception e) {
             e.printStackTrace();
-            return false;
         }
+
+        return -1;
     }
 }
-
