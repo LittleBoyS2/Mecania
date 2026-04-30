@@ -38,7 +38,7 @@ public class Main {
                 switch (opcao) {
 
                     case 1:
-                        // 🔥 CADASTRO COMPLETO
+                        // CADASTRO COMPLETO
 
                         Cliente cliente = new Cliente();
 
