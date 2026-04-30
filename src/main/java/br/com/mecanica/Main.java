@@ -19,8 +19,12 @@ public class Main {
 
         try {
 
+            // Conexão com o Banco
+
             Conexao.conectar();
             System.out.println("Conexão com o banco estabelecida!");
+
+            // Menu CRUD
 
             int opcao;
 
@@ -38,7 +42,8 @@ public class Main {
                 switch (opcao) {
 
                     case 1:
-                        // CADASTRO COMPLETO
+
+                        // CADASTRO COMPLETO: CLIENTE, VEICULO E OS
 
                         Cliente cliente = new Cliente();
 
@@ -59,6 +64,8 @@ public class Main {
 
                         ClienteDAO clienteDAO = new ClienteDAO();
                         int idCliente = clienteDAO.cadastrar(cliente);
+
+                        // VALIDAÇÃO DO ID 
 
                         if (idCliente == -1) {
                             System.out.println("Erro ao cadastrar cliente!");
@@ -86,6 +93,8 @@ public class Main {
 
                         VeiculoDAO veiculoDAO = new VeiculoDAO();
                         int idVeiculo = veiculoDAO.cadastrar(veiculo);
+
+                        // VALIDAÇÃO DO ID 
 
                         if (idVeiculo <= 0) {
                             System.out.println("Erro ao cadastrar veículo!");
@@ -116,6 +125,8 @@ public class Main {
                         System.out.println("OS cadastrada com sucesso!");
                         break;
 
+                        // LISTAGEM 
+
                     case 2:
                         List<OrdemServico> lista = new OrdemServicoDAO().listar();
 
@@ -125,6 +136,8 @@ public class Main {
                             System.out.println("Veículo: " + item.getVeiculo().getModelo());
                         }
                         break;
+
+                        // ATUALIZAÇÃO DO SERVIÇO 
 
                     case 3:
                         OrdemServico osAtualizar = new OrdemServico();
@@ -153,6 +166,8 @@ public class Main {
                         System.out.println("Atualizado!");
                         break;
 
+                        // DELETAR 
+
                     case 4:
                         System.out.print("ID: ");
                         int id = input.nextInt();
@@ -163,6 +178,8 @@ public class Main {
                         System.out.println("Deletado!");
                         break;
 
+                        // SAIR 
+
                     case 0:
                         System.out.println("Saindo...");
                         break;
@@ -172,6 +189,7 @@ public class Main {
                 }
 
             } while (opcao != 0);
+        
         } catch (Exception e) {
             System.err.println("\n[ERRO]: Ocorreu um problema durante a execução:");
             e.printStackTrace();

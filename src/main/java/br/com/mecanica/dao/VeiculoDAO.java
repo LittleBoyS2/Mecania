@@ -27,7 +27,7 @@ public class VeiculoDAO {
 
             var rs = stmt.getGeneratedKeys();
             if (rs.next()) {
-                return rs.getInt(1); // 👈 ID gerado
+                return rs.getInt(1); 
             }
 
         } catch (Exception e) {

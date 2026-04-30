@@ -23,6 +23,8 @@ public class Veiculo {
 
     public Veiculo() {}
 
+    // Getters e Setters 
+
     public int getId() {
         return id;
     }

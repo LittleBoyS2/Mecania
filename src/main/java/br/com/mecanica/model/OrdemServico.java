@@ -3,7 +3,7 @@ package br.com.mecanica.model;
 public class OrdemServico {
 
     private int id;
-    private Veiculo veiculo; // 🔗 ligação
+    private Veiculo veiculo; 
     private String problema;
     private String diagnostico;
     private String status;
@@ -11,7 +11,7 @@ public class OrdemServico {
     private String dataSaida;
     private double valorTotal;
 
-    // getters e setters
+    // Getters e Setters
 
     public int getId() {
         return id;

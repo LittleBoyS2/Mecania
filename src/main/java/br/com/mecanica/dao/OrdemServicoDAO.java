@@ -34,6 +34,8 @@ public class OrdemServicoDAO {
         conn.close();
     }
 
+    // METODO LISTAGEM
+
     public List<OrdemServico> listar() throws SQLException {
         List<OrdemServico> lista = new ArrayList<>();
 
@@ -74,6 +76,8 @@ public class OrdemServicoDAO {
         return lista;
     }
 
+    // METODO ATUALIZAÇÃO 
+
     public void atualizar(OrdemServico os) throws SQLException {
         String sql = "UPDATE ordem_servico SET problema=?, diagnostico=?, status=?, data_saida=?, valor_total=? WHERE id_os=?";
 
@@ -91,6 +95,8 @@ public class OrdemServicoDAO {
         stmt.close();
         conn.close();
     }
+
+    // METODO DELETAR 
 
     public void deletar(int id) throws SQLException {
         String sql = "DELETE FROM ordem_servico WHERE id_os = ?";
